@@ -1,28 +1,44 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <TodoForm />
+
+    <TodoItem
+      v-for="todo in todos"
+      :key="todo.id" 
+      :todo="todo" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { API } from 'aws-amplify';
+import { listTodos } from './graphql/queries';
+
+import TodoForm from './components/TodoForm.vue'
+import TodoItem from './components/TodoItem.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  components: { TodoItem, TodoForm },
+
+  data(){
+    return {
+      todos: []
+    }
+  },
+
+  methods: {
+    async fetchTodos() {
+      const { data } = await API.graphql({ query: listTodos })
+      this.todos = data?.listTodos?.items ?? [];
+    }
+  },
+
+  beforeMount() {
+    this.fetchTodos();
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+#app {}
 </style>
