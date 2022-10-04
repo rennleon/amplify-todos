@@ -22,13 +22,22 @@ export default {
 
   methods: {
     async onSubmit() {
-      const todo = {name: this.name, description: this.description};
+      const todo = this.getNewTodo();
       await API.graphql({
         query: createTodo,
         variables: { input: todo }
       })
       this.clearForm();
     },
+
+    getNewTodo() {
+      return {
+        done: false,
+        name: this.name,
+        description: this.description
+      }
+    },
+    
     clearForm() {
       this.name = '';
       this.description = '';
