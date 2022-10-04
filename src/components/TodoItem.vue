@@ -1,18 +1,15 @@
 <template>
   <div class="todo-item">
-    <h1>{{ name }}</h1>
-    <small><b>{{ new Date().toISOString() }}</b></small>
+    <h1>{{ todo.name }}</h1>
+    <small><b>{{ todo.createdAt }}</b></small>
+    <input type="checkbox" :checked="todo.done" />
   </div>
 </template>
 
 <script>
 export default {
   name: 'TodoItem',
-  props: {
-    id: String,
-    name: String,
-    description: String,
-  }
+  props: { todo: Object }
 }
 </script>
 
