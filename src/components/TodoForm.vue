@@ -21,9 +21,9 @@ export default {
   },
 
   methods: {
-    async onSubmit() {
+    onSubmit() {
       const todo = this.getNewTodo();
-      await API.graphql({
+      API.graphql({
         query: createTodo,
         variables: { input: todo }
       })
@@ -37,7 +37,7 @@ export default {
         description: this.description
       }
     },
-    
+
     clearForm() {
       this.name = '';
       this.description = '';
