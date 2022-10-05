@@ -7,27 +7,27 @@ export function alertNewTodo() {
 
 export function alertCreatingTodo() {
   toastr.clear();
-  toastr.info("Creating todo!!", "Processing ...");
+  toastr.info("", "Creating todo...");
 }
 
 export function alertDeletedTodo() {
   toastr.clear();
-  toastr.success("Todo deleted successfully", "Deleted todo");
+  toastr.success("Todo deleted successfully", "Delete todo");
 }
 
 export function alertDeletingTodo() {
   toastr.clear();
-  toastr.info("Creating todo!!", "Processing ...");
+  toastr.info("", "Deleting todo ...");
 }
 
 export function alertUpdatedTodo() {
   toastr.clear();
-  toastr.success("Todo updated successfully!!", "Success!!");
+  toastr.success("Todo updated successfully!!", "Update todo");
 }
 
 export function alertUpdatingTodo() {
   toastr.clear();
-  toastr.info("Updating todo!!", "Processing ...");
+  toastr.info("", "Updating todo ...");
 }
 
 export function alertError(msg) {
