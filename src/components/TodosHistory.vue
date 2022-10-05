@@ -1,11 +1,15 @@
 <template>
-  <div>
-    <h1>History</h1>
+  <div class="col-12 col-md-3 text-secondary">
+    <h5>History</h5>
 
-    <ul>
-      <li v-for="todo in sortedTodos" :key="todo.id">
-        <h5>{{ todo.title }}</h5>
-        <small><b>done at:</b> {{ parseDate(todo.updatedAt) }}</small>
+    <ul class="list-group list-group-flush">
+      <li
+        v-for="todo in sortedTodos"
+        :key="todo.id"
+        class="list-group-item text-secondary"
+        >
+        <h6>{{ todo.title }}</h6>
+        <small>{{ parseDate(todo.updatedAt) }}</small>
       </li>
     </ul>
   </div>
@@ -47,4 +51,13 @@ export default {
 </script>
 
 <style scoped>
+  h6 {
+    margin-bottom: 0;
+  }
+
+  small {
+    font-size: 10px;
+    padding: 0;
+    margin: 0;
+  }
 </style>

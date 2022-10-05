@@ -1,10 +1,16 @@
 <template>
-  <div id="app">
-    <TodoForm />
+  <div id="app" class="container">
+    <div class="row mt-5 d-flex justify-content-center">
+      <div class="col col-md-6">
+        <h1 class="text-center text-primary">Todo's App</h1>
+        <TodoForm />
+      </div>
+    </div>
 
-    <TodosList :todos="pendingTodos" />
-
-    <TodosHistory :todos="doneTodos" />    
+    <div class="row mt-3 d-flex justify-content-center">
+      <TodosList :todos="pendingTodos" />
+      <TodosHistory :todos="doneTodos" />
+    </div>
   </div>
 </template>
 

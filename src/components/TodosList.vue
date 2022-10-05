@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <h1>Pending todo's</h1>
-    <ul>
+  <div class="col-12 col-md-6">
+    <h3>Pending todo's</h3>
+    
+    <ul class="list-group list-group-flush">
       <TodoItem
         v-for="todo in todos"
         :key="todo.id" 
