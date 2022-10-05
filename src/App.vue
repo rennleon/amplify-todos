@@ -15,7 +15,7 @@
 <script>
 import { API } from 'aws-amplify';
 import { listTodos } from './graphql/queries';
-import { onCreateTodo } from './graphql/subscriptions';
+import { onCreateTodo, onDeleteTodo } from './graphql/subscriptions';
 
 import TodoForm from './components/TodoForm.vue'
 import TodoItem from './components/TodoItem.vue'
@@ -45,11 +45,22 @@ export default {
             this.todos = [newTodo, ...this.todos];
           }
         })
+    },
+
+    subscribeToDeletedTodo() {
+      API.graphql({ query: onDeleteTodo })
+        .subscribe({
+          next: (evData) => {
+            const deletedTodo = evData.value.data.onDeleteTodo;
+            this.todos = this.todos.filter(t => t.id !== deletedTodo.id);
+          }
+        })
     }
   },
 
   beforeMount() {
     this.subscribeToNewTodo();
+    this.subscribeToDeletedTodo();
     this.fetchTodos();
   }
 }
