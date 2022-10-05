@@ -1,6 +1,6 @@
 <template>
   <li class="todo-item">
-    <h1>{{ todo.name }}</h1>
+    <h1>{{ todo.title }}</h1>
     <p>{{ todo.description }}</p>
     <small><b>created at:</b> {{ parseDate(todo.createdAt) }}</small>
 

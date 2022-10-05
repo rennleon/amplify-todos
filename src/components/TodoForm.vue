@@ -1,11 +1,11 @@
 <template>
   <form @submit.prevent="onSubmit">
     <div class="form-group">
-      <label for="name">Todo title</label>
+      <label for="title">Todo title</label>
       <input
-        ref="nameInput"
-        v-model="name"
-        id="name"
+        ref="titleInput"
+        v-model="title"
+        id="title"
         type="text"
         class="form-control" />
     </div>
@@ -36,14 +36,14 @@ export default {
 
   data(){
     return {
-      name: '',
+      title: '',
       description: '',
     }
   },
 
   methods: {
     onSubmit() {
-      this.$refs.nameInput.focus();
+      this.$refs.titleInput.focus();
       const todo = this.getNewTodo();
       API.graphql({
         query: createTodo,
@@ -55,13 +55,13 @@ export default {
     getNewTodo() {
       return {
         done: false,
-        name: this.name,
+        title: this.title,
         description: this.description
       }
     },
 
     clearForm() {
-      this.name = '';
+      this.title = '';
       this.description = '';
     }
   }

@@ -4,7 +4,7 @@
 
     <ul>
       <li v-for="todo in sortedTodos" :key="todo.id">
-        <h5>{{ todo.name }}</h5>
+        <h5>{{ todo.title }}</h5>
         <small><b>done at:</b> {{ parseDate(todo.updatedAt) }}</small>
       </li>
     </ul>
