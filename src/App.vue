@@ -2,18 +2,9 @@
   <div id="app">
     <TodoForm />
 
-    <div>
-      <h1>Pending todo's</h1>
-      <ul>
-        <TodoItem
-          v-for="todo in pendingTodos"
-          :key="todo.id" 
-          :todo="todo" />
-      </ul>
-    </div>
+    <TodosList :todos="pendingTodos" />
 
-    <TodosHistory :todos="doneTodos" />
-    
+    <TodosHistory :todos="doneTodos" />    
   </div>
 </template>
 
@@ -23,14 +14,14 @@ import { listTodos } from './graphql/queries';
 import { onCreateTodo, onUpdateTodo, onDeleteTodo } from './graphql/subscriptions';
 
 import TodoForm from './components/TodoForm.vue'
-import TodoItem from './components/TodoItem.vue'
+import TodosList from './components/TodosList.vue'
 import TodosHistory from './components/TodosHistory.vue'
 
 export default {
   name: 'App',
-  components: { TodoItem, TodoForm, TodosHistory },
+  components: { TodoForm, TodosList, TodosHistory },
 
-  data(){
+  data() {
     return {
       todos: []
     }
@@ -48,7 +39,11 @@ export default {
   methods: {
     async fetchTodos() {
       const { data } = await API.graphql({ query: listTodos })
-      this.todos = data?.listTodos?.items ?? [];
+
+      const todos = data?.listTodos?.items ?? [];
+      todos.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+
+      this.todos = todos;
     },
 
     subscribeToNewTodo() {
