@@ -44,7 +44,10 @@ export default {
   methods: {
     onSubmit() {
       this.$refs.titleInput.focus();
-      const todo = this.getNewTodo();
+      const rawTodo = this.getTodoData();
+      const todo = this.clearTodoFields(rawTodo);
+      if (!this.isValidTodo(todo)) return;
+
       API.graphql({
         query: createTodo,
         variables: { input: todo }
@@ -52,7 +55,19 @@ export default {
       this.clearForm();
     },
 
-    getNewTodo() {
+    clearTodoFields(todo) {
+      return {
+        ...todo,
+        title: todo.title?.trim(),
+        description: todo.description?.trim(),
+      };
+    },
+
+    isValidTodo(todo) {
+      return !!todo.title;
+    },
+
+    getTodoData() {
       return {
         done: false,
         title: this.title,
