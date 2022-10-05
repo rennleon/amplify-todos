@@ -31,10 +31,12 @@
 import { API } from 'aws-amplify';
 import { createTodo } from '../graphql/mutations';
 
+import { alertCreatingTodo, alertError } from '../utils/alerts.js';
+
 export default {
   name: 'TodoForm',
 
-  data(){
+  data() {
     return {
       title: '',
       description: '',
@@ -46,7 +48,12 @@ export default {
       this.$refs.titleInput.focus();
       const rawTodo = this.getTodoData();
       const todo = this.clearTodoFields(rawTodo);
-      if (!this.isValidTodo(todo)) return;
+      if (!this.isValidTodo(todo)) {
+        alertError('Title is required');
+        return;
+      }
+
+      alertCreatingTodo();
 
       API.graphql({
         query: createTodo,
