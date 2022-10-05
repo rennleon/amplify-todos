@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <input v-model="name" />
+    <input ref="nameInput" v-model="name" />
     <textarea v-model="description"></textarea>
     <button type="submit">create</button>
   </form>
@@ -22,6 +22,7 @@ export default {
 
   methods: {
     onSubmit() {
+      this.$refs.nameInput.focus();
       const todo = this.getNewTodo();
       API.graphql({
         query: createTodo,
