@@ -2,7 +2,11 @@
   <div class="col-12 col-md-6">
     <h3>Pending todo's</h3>
     
-    <ul class="list-group list-group-flush">
+    <div v-if="todos.length === 0" class="text-secondary">
+      No todos to show
+    </div>
+
+    <ul v-else class="list-group list-group-flush">
       <TodoItem
         v-for="todo in todos"
         :key="todo.id" 

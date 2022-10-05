@@ -2,7 +2,11 @@
   <div class="col-12 col-md-3 text-secondary">
     <h5>History</h5>
 
-    <ul class="list-group list-group-flush">
+    <div v-if="todos.length === 0" class="text-secondary">
+      Empty history
+    </div>
+
+    <ul v-else class="list-group list-group-flush">
       <li
         v-for="todo in sortedTodos"
         :key="todo.id"
