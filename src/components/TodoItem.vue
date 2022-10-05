@@ -35,6 +35,8 @@ import { API } from 'aws-amplify';
 import { updateTodo, deleteTodo } from '../graphql/mutations';
 import { parseDate } from '../utils/date-utils.js'
 
+import { alertDeletingTodo, alertUpdatingTodo } from '../utils/alerts.js';
+
 export default {
   name: 'TodoItem',
   props: { todo: Object },
@@ -43,6 +45,9 @@ export default {
 
     onDelete() {
       this.$refs.deleteBtn.disabled = true;
+
+      alertDeletingTodo();
+
       API.graphql({
         query: deleteTodo,
         variables: { input: { id: this.todo.id } }
@@ -51,6 +56,9 @@ export default {
 
     onMarkAsDone() {
       this.$refs.doneCheckbox.disabled = true;
+
+      alertUpdatingTodo();
+
       API.graphql({
         query: updateTodo,
         variables: { input: { id: this.todo.id, done: true } }

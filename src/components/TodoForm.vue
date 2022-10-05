@@ -58,7 +58,7 @@ export default {
       API.graphql({
         query: createTodo,
         variables: { input: todo }
-      })
+      });
       this.clearForm();
     },
 
