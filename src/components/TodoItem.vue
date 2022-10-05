@@ -3,12 +3,19 @@
     <h1>{{ todo.name }}</h1>
     <p>{{ todo.description }}</p>
     <small><b>{{ todo.createdAt }}</b></small>
+
     <input
       ref="doneCheckbox"
       type="checkbox"
       :checked="todo.done"
       @click="onMarkAsDone"  />
-    <button @click="onDelete">delete</button>
+
+    <button
+      ref="deleteBtn"
+      @click="onDelete"
+      >
+      delete
+    </button>
   </li>
 </template>
 
@@ -21,6 +28,7 @@ export default {
   props: { todo: Object },
   methods: {
     onDelete() {
+      this.$refs.deleteBtn.disabled = true;
       API.graphql({
         query: deleteTodo,
         variables: { input: { id: this.todo.id } }
