@@ -14,6 +14,7 @@
 <script>
 import { API } from 'aws-amplify';
 import { deleteTodo } from '../graphql/mutations';
+import { parseDate } from '../utils/date-utils.js'
 
 export default {
   name: 'TodosHistory',
@@ -27,10 +28,7 @@ export default {
   },
   
   methods: {
-    parseDate(tmzDateString) {
-      const date = new Date(tmzDateString);
-      return date.toUTCString();
-    },
+    parseDate,
 
     deleteTodo(id) {
       API.graphql({
