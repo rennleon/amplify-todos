@@ -14,6 +14,12 @@
     "categories": {
       "api": {
         "todosapp": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d343ee8gkcvyx5",
+          "type": "manual"
+        }
       }
     }
   }
