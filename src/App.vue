@@ -36,7 +36,7 @@ export default {
       this.todos = data?.listTodos?.items ?? [];
     },
 
-    listenNewTodo() {
+    subscribeToNewTodo() {
       API.graphql({ query: onCreateTodo })
         .subscribe({
           next: (evData) => {
@@ -49,7 +49,7 @@ export default {
   },
 
   beforeMount() {
-    this.listenNewTodo();
+    this.subscribeToNewTodo();
     this.fetchTodos();
   }
 }
