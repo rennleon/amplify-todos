@@ -7,7 +7,13 @@
       </div>
     </div>
 
-    <div class="row mt-3 d-flex justify-content-center">
+    <div v-if="loading" class="mt-5 d-flex justify-content-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only"></span>
+      </div>
+    </div>
+
+    <div v-else class="row mt-3 d-flex justify-content-center">
       <TodosList :todos="pendingTodos" />
       <TodosHistory :todos="doneTodos" />
     </div>
@@ -31,6 +37,7 @@ export default {
 
   data() {
     return {
+      loading: false,
       todos: []
     }
   },
@@ -47,6 +54,8 @@ export default {
   methods: {
     async fetchTodos() {
       try {
+        this.loading = true;
+
         const { data } = await API.graphql({ query: listTodos })
 
         const todos = data?.listTodos?.items ?? [];
@@ -55,6 +64,8 @@ export default {
         this.todos = todos;
       } catch(err) {
         alertError(err.message);
+      } finally {
+        this.loading = false;
       }
     },
 
