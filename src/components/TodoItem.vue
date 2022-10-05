@@ -3,14 +3,18 @@
     <h1>{{ todo.name }}</h1>
     <p>{{ todo.description }}</p>
     <small><b>{{ todo.createdAt }}</b></small>
-    <input type="checkbox" :checked="todo.done" />
+    <input
+      ref="doneCheckbox"
+      type="checkbox"
+      :checked="todo.done"
+      @click="onMarkAsDone"  />
     <button @click="onDelete">delete</button>
   </li>
 </template>
 
 <script>
 import { API } from 'aws-amplify';
-import { deleteTodo } from '../graphql/mutations';
+import { updateTodo, deleteTodo } from '../graphql/mutations';
 
 export default {
   name: 'TodoItem',
@@ -20,7 +24,15 @@ export default {
       API.graphql({
         query: deleteTodo,
         variables: { input: { id: this.todo.id } }
-      })
+      });
+    },
+
+    onMarkAsDone() {
+      this.$refs.doneCheckbox.disabled = true;
+      API.graphql({
+        query: updateTodo,
+        variables: { input: { id: this.todo.id, done: true } }
+      });
     }
   }
 }
