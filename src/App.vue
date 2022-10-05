@@ -12,15 +12,7 @@
       </ul>
     </div>
 
-    <div>
-      <h1>History</h1>
-      <ul>
-        <TodoItem
-          v-for="todo in doneTodos"
-          :key="todo.id" 
-          :todo="todo" />
-      </ul>
-    </div>
+    <TodosHistory :todos="doneTodos" />
     
   </div>
 </template>
@@ -32,10 +24,11 @@ import { onCreateTodo, onUpdateTodo, onDeleteTodo } from './graphql/subscription
 
 import TodoForm from './components/TodoForm.vue'
 import TodoItem from './components/TodoItem.vue'
+import TodosHistory from './components/TodosHistory.vue'
 
 export default {
   name: 'App',
-  components: { TodoItem, TodoForm },
+  components: { TodoItem, TodoForm, TodosHistory },
 
   data(){
     return {
