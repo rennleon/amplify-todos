@@ -2,19 +2,25 @@
   <div id="app">
     <TodoForm />
 
-    <ul>
-      <TodoItem
-        v-for="todo in doneTodos"
-        :key="todo.id" 
-        :todo="todo" />
-    </ul>
+    <div>
+      <h1>Pending todo's</h1>
+      <ul>
+        <TodoItem
+          v-for="todo in pendingTodos"
+          :key="todo.id" 
+          :todo="todo" />
+      </ul>
+    </div>
 
-    <ul>
-      <TodoItem
-        v-for="todo in pendingTodos"
-        :key="todo.id" 
-        :todo="todo" />
-    </ul>
+    <div>
+      <h1>History</h1>
+      <ul>
+        <TodoItem
+          v-for="todo in doneTodos"
+          :key="todo.id" 
+          :todo="todo" />
+      </ul>
+    </div>
     
   </div>
 </template>
@@ -22,7 +28,7 @@
 <script>
 import { API } from 'aws-amplify';
 import { listTodos } from './graphql/queries';
-import { onCreateTodo, onDeleteTodo } from './graphql/subscriptions';
+import { onCreateTodo, onUpdateTodo, onDeleteTodo } from './graphql/subscriptions';
 
 import TodoForm from './components/TodoForm.vue'
 import TodoItem from './components/TodoItem.vue'
@@ -71,11 +77,22 @@ export default {
             this.todos = this.todos.filter(t => t.id !== deletedTodo.id);
           }
         })
+    },
+
+    subscribeToUpdatedTodo() {
+      API.graphql({ query: onUpdateTodo })
+        .subscribe({
+          next: (evData) => {
+            const updatedTodo = evData.value.data.onUpdateTodo;
+            this.todos = this.todos.map(t => (t.id !== updatedTodo.id)? t: {...updatedTodo});
+          }
+        })
     }
   },
 
-  beforeMount() {
+  mounted() {
     this.subscribeToNewTodo();
+    this.subscribeToUpdatedTodo();
     this.subscribeToDeletedTodo();
     this.fetchTodos();
   }
