@@ -2,10 +2,13 @@
   <div id="app">
     <TodoForm />
 
-    <TodoItem
-      v-for="todo in todos"
-      :key="todo.id" 
-      :todo="todo" />
+    <ul>
+      <TodoItem
+        v-for="todo in todos"
+        :key="todo.id" 
+        :todo="todo" />
+    </ul>
+    
   </div>
 </template>
 
