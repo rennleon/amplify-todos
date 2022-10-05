@@ -4,7 +4,14 @@
 
     <ul>
       <TodoItem
-        v-for="todo in todos"
+        v-for="todo in doneTodos"
+        :key="todo.id" 
+        :todo="todo" />
+    </ul>
+
+    <ul>
+      <TodoItem
+        v-for="todo in pendingTodos"
         :key="todo.id" 
         :todo="todo" />
     </ul>
@@ -27,6 +34,15 @@ export default {
   data(){
     return {
       todos: []
+    }
+  },
+
+  computed: {
+    doneTodos() {
+      return this.todos.filter(t => t.done);
+    },
+    pendingTodos() {
+      return this.todos.filter(t => !t.done);
     }
   },
 
