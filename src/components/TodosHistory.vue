@@ -47,7 +47,7 @@ export default {
 
     deleteExtraTodos() {
       this.todos
-        .slice(10)
+        .slice(5)
         .forEach(t => this.deleteTodo(t.id));
     }
   },
