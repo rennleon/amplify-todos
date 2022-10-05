@@ -1,8 +1,29 @@
 <template>
   <form @submit.prevent="onSubmit">
-    <input ref="nameInput" v-model="name" />
-    <textarea v-model="description"></textarea>
-    <button type="submit">create</button>
+    <div class="form-group">
+      <label for="name">Todo title</label>
+      <input
+        ref="nameInput"
+        v-model="name"
+        id="name"
+        type="text"
+        class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        v-model="description" 
+        id="description"
+        class="form-control" >
+      </textarea>
+    </div>
+
+    <button
+      type="submit"
+      class="mt-2 px-3 btn btn-primary btn-sm" >
+      create
+    </button>
   </form>
 </template>
 
